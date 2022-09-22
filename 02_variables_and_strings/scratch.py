@@ -1,0 +1,5 @@
+number_2 = int(input("Input an integer : "))
+n1 = int( "%s" % number_2 )
+n2 = int( "%s%s" % (number_2,number_2) )
+n3 = int( "%s%s%s" % (number_2,number_2,number_2) )
+print("The a+aa+aaa number is:\n" + str(n1+n2+n3))
