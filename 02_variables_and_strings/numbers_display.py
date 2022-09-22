@@ -1,10 +1,11 @@
 # Given a floating point number as a string, change its display from the US format to the RO format
-# For example '1,000.5' should be `1.000,5`
+# For example '1,000,000.5' should be `1.000.000,5`
 
 
 def us_to_ro_number(nr_as_string: str) -> str:
-    raise Exception('Implement me!')
-    return ''
+    replaced_number = nr_as_string.replace('.', '*').replace(',', '.').replace('*', ',')
+    print(replaced_number)
+    return replaced_number
 
 
 def test():
