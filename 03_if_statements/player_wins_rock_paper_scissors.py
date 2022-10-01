@@ -5,7 +5,24 @@ def player_wins_rock_paper_scissors(player_input: str, computer_input: str) -> s
     if player_input != ROCK and player_input != PAPER and player_input != SCISSORS:
         raise NameError('I do not understand the command: ' + player_input)
 
-    raise 'Implement me!'
+    if player_input == computer_input:
+        return DRAW
+
+    if player_input == ROCK:
+        if computer_input == SCISSORS:
+            return WIN
+        else:
+            return LOSS
+    if player_input == PAPER:
+        if computer_input == ROCK:
+            return WIN
+        else:
+            return LOSS
+    if player_input == SCISSORS:
+        if computer_input == PAPER:
+            return WIN
+        else:
+            return LOSS
 
 
 def test():

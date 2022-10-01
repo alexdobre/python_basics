@@ -2,15 +2,15 @@
 
 
 def add_punctuation(sentence: str) -> str:
-    raise Exception('Implement me!')
-    return ''
+    r = sentence.capitalize() + '.'
+    return r
 
 
 def test():
     assert 'A word.' == add_punctuation('a word')
     assert 'Some other sentence.' == add_punctuation('some other sentence')
     assert '.' == add_punctuation('')
-    assert 'b' == add_punctuation('B.')
+    assert 'B.' == add_punctuation('b')
     print('All tests passed!')
 
 
