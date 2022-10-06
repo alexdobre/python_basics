@@ -5,7 +5,24 @@
 
 
 def populate_array(ar: list[int]) -> list[int]:
-    # implement me
+    for index, x in enumerate(ar):
+        if x == -1:
+            continue
+        if index == 0:  # we are at the beginning of the array
+            neighbour_to_the_left = 0
+        else:
+            neighbour_to_the_left = ar[index - 1]
+
+        if index == len(ar) - 1:  # we are at the end of the array
+            neighbour_to_the_right = 0
+        else:
+            neighbour_to_the_right = ar[index + 1]
+
+        if neighbour_to_the_left == -1:
+            ar[index] += 1
+        if neighbour_to_the_right == -1:
+            ar[index] += 1
+
     return ar
 
 
