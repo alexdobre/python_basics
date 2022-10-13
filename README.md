@@ -121,3 +121,14 @@ for x in adj:
 for x in [0, 1, 2]:
   pass
 ```
+
+## While Loops
+https://www.w3schools.com/python/python_while_loops.asp
+
+```python
+i = 1
+while i < 6:
+    print(i)
+    i += 1
+  # can use continue and break keywords with while loops as well 
+```
