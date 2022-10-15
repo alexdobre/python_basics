@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Person List {% endblock %}</h1>
+    {% for person in people %}
+        <h2>{{ person['name'] }}</h2>
+        Description: <span class="badge badge-primary">{{ person['description'] }}</span>
+        Favorite Number: <span class="badge badge-primary">{{ person['favorite_number'] }}</span>
+        <a href="{{ url_for('edit', person_id=person['id']) }}">
+            <span class="badge badge-warning">Edit</span>
+        </a>
+        <hr>
+    {% endfor %}
+{% endblock %}

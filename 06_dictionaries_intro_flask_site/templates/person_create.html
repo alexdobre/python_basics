@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{% block title %} Create a New Person {% endblock %}</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" name="name"
+               placeholder="Person name" class="form-control"
+               value="{{ request.form['name'] }}"/>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea name="description" placeholder="Person description"
+                  class="form-control">{{ request.form['description'] }}</textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="favorite_number">Favorite number</label>
+        <input type="number" name="favorite_number"
+               placeholder="Person favorite number" class="form-control"
+               value="{{ request.form['favorite_number'] }}"/>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
+{% endblock %}

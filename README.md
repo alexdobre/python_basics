@@ -48,12 +48,12 @@ def this_is_a_function(function_parameter: float, another_parameter: int) -> str
     return 'something'
 ```
 
-## Arrays
+## Lists
 
-https://www.w3schools.com/python/python_arrays.asp
+https://www.w3schools.com/python/python_lists.asp
 
 ```python
-# Python arrays
+# Python lists
 cars = ["Ford", "Volvo", "BMW"]
 
 # accessing arrays with index starting at 0
@@ -65,9 +65,9 @@ cars[0] = "Toyota" # ["Toyota", "Volvo", "BMW"]
 
 print(len(cars)) # length of array is 3
 
-cars.append("Honda") # add to the array ["Toyota", "Volvo", "BMW", "Honda"]
-cars.pop(1) # remove the second element in the array ["Toyota", "BMW", "Honda"]
-cars.remove("Honda") # remove specific element in the array ["Toyota", "BMW"]
+cars.append("Honda") # add to the list ["Toyota", "Volvo", "BMW", "Honda"]
+cars.pop(1) # remove the second element in the list ["Toyota", "BMW", "Honda"]
+cars.remove("Honda") # remove specific element in the list ["Toyota", "BMW"]
 ```
 
 ## For loops 
@@ -131,4 +131,33 @@ while i < 6:
     print(i)
     i += 1
   # can use continue and break keywords with while loops as well 
+```
+## Dictionaries
+
+https://www.w3schools.com/python/python_dictionaries.asp
+
+```python
+# Define a dict
+car = {
+  'brand': 'Ford',
+  'model': 'Mustang',
+  'year': 1964
+}
+print(type(car)) # dict
+
+# access a value
+car['year'] # 1964
+car.get('year') # 1964
+
+# List keys
+car.keys() # ['brand', 'model', 'year']
+# List values
+car.values() # ['Ford', 'Mustang', 1964]
+# change or add a value
+car['year'] = 1966
+car.update({'year': 1966})
+# remove a value
+car.pop('year')
+del car['model']
+car.clear() # empties the dictionary
 ```
