@@ -5,6 +5,9 @@ Please see the respective lessons folders.
 # Python syntax cheat sheet
 https://www.w3schools.com/python/default.asp
 
+Good concise python cheat sheet: 
+https://zerotomastery.io/cheatsheets/python-cheat-sheet/
+
 ## Variables and string manipulation
 ```python
 name = 'Alex'
@@ -161,3 +164,29 @@ car.pop('year')
 del car['model']
 car.clear() # empties the dictionary
 ```
+
+## Tuples
+https://www.w3schools.com/python/python_tuples.asp
+
+Tuples are ways to store multiple values into a variable. As opposed to lists, they are unchangeable.
+```python
+# tuples are declared using rounded brackets as opposed to square brackets for lists
+fruits = ("apple", "banana", "cherry")
+print(len(fruits)) # 3
+print(fruits[0]) # apple
+
+# you need the comma to declare a single value tuple
+fruit = ("apple",)
+print(type(fruit)) # tuple
+
+# tuples can contain any data types
+fruits = ("apple", "banana", "cherry")
+numbers = (1, 5, 7, 9, 3)
+booleans = (True, False, False)
+combo = ("abc", 34, True, 40, "male")
+```
+
+# Pygame
+
+https://www.pygame.org/wiki/about
+
