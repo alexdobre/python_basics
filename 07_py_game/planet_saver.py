@@ -37,23 +37,23 @@ class PlanetSaver:
         pygame.display.flip()
 
     def play_game(self):
-        self.calculate_new_random_blister_position()
+        self.__calculate_new_random_blister_position()
 
         self.running = True
         while self.running:
-            self.handle_keyboard_inputs()
+            self.__handle_keyboard_inputs()
             if self.paused:
                 continue
-            self.update_orbital_position()
-            self.update_laser_beam()
-            if self.laser_beam_hits_blister():
-                self.calculate_new_random_blister_position()
+            self.__update_orbital_position()
+            self.__update_laser_beam()
+            if self.__laser_beam_hits_blister():
+                self.__calculate_new_random_blister_position()
                 self.score = self.score + 1
-            self.draw()
+            self.__draw()
             self.clock_cycles += 1
             sleep(self.CYCLE_PAUSE)
 
-    def handle_keyboard_inputs(self):
+    def __handle_keyboard_inputs(self):
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -73,7 +73,7 @@ class PlanetSaver:
                 if event.key == pygame.K_RIGHT:
                     self.going_right = False
 
-    def update_orbital_position(self):
+    def __update_orbital_position(self):
         if self.going_left:
             self.orbital_angle = self.orbital_angle - 2
         if self.going_right:
@@ -81,12 +81,12 @@ class PlanetSaver:
         self.orbital_position = self.calculate_position_on_circle(self.orbital_angle, self.ORBIT_RADIUS,
                                                                   self.CANVAS_CENTER)
 
-    def calculate_new_random_blister_position(self):
+    def __calculate_new_random_blister_position(self):
         random_angle = randint(1, 360)
         self.blister_position = self.calculate_position_on_circle(random_angle, self.PLANET_RADIUS + 1,
                                                                   self.CANVAS_CENTER)
 
-    def update_laser_beam(self):
+    def __update_laser_beam(self):
         if self.clock_cycles > self.LASER_BEAM_ACTIVATION_CYCLE:
             self.laser_beam_active = True
             planet_impact_position = self.calculate_position_on_circle(self.orbital_angle, self.PLANET_RADIUS,
@@ -99,14 +99,14 @@ class PlanetSaver:
             self.laser_beam_active = False
             self.clock_cycles = 0
 
-    def laser_beam_hits_blister(self):
+    def __laser_beam_hits_blister(self):
         laser_beam_planet_impact = self.laser_beam[0]
         return ((self.blister_position[0] >= laser_beam_planet_impact[0] - 20) and
                 (self.blister_position[0] <= laser_beam_planet_impact[0] + 20) and
                 (self.blister_position[1] >= laser_beam_planet_impact[1] - 20) and
                 (self.blister_position[1] <= laser_beam_planet_impact[1] + 20))
 
-    def draw(self):
+    def __draw(self):
         self.screen.fill(self.BACKGROUND_COLOR)
         score_text = self.score_font.render(str(self.score), True, (200, 200, 200))
         text_rectangle = score_text.get_rect()
