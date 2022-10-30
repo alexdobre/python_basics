@@ -56,14 +56,14 @@ class PlanetSaver:
     def __handle_keyboard_inputs(self):
         events = pygame.event.get()
         for event in events:
+            if event.type == pygame.QUIT:
+                self.__quit_game()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:  # space pauses the game
                     self.paused = not self.paused
                 if event.key == pygame.K_ESCAPE:  # escape quits the game
-                    pygame.quit()
-                    self.paused = True
-                    self.running = False
-                if event.key == pygame.K_LEFT:  # left arrow moves the orbital 
+                    self.__quit_game()
+                if event.key == pygame.K_LEFT:  # left arrow moves the orbital
                     self.going_left = True
                 if event.key == pygame.K_RIGHT:  # right arrow moves the orbital 
                     self.going_right = True
@@ -118,6 +118,11 @@ class PlanetSaver:
         pygame.draw.circle(self.screen, (255, 0, 0), self.CANVAS_CENTER, self.PLANET_RADIUS)
         pygame.draw.rect(self.screen, (255, 255, 255), pygame.Rect(*self.orbital_position, 30, 30))
         pygame.display.flip()
+
+    def __quit_game(self):
+        pygame.quit()
+        self.paused = True
+        self.running = False
 
     @staticmethod
     def calculate_position_on_circle(angle, radius, center_point):
