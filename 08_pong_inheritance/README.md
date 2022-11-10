@@ -7,3 +7,7 @@ https://www.101computing.net/pong-tutorial-using-pygame-getting-started/
 ```commandline
 pip install -r requirements.txt 
 ```
+
+# Free sounds from
+
+https://www.soundjay.com/

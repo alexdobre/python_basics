@@ -16,6 +16,8 @@ class PlanetSaver:
     LASER_BEAM_RESET_CYCLE = 50
     ORBITAL_SIZE = 30
     CYCLE_PAUSE = 0.02
+    WINNING_SCORE = 5
+    NR_OF_BLISTERS = 3
 
     running = False
     paused = False
@@ -24,7 +26,7 @@ class PlanetSaver:
     orbital_angle = 0
     orbital_position = (0, 0)
     score = 0
-    blister_position = (0, 0)
+    blister_positions = []
     laser_beam = [(0, 0), (0, 0)]
     laser_beam_active = False
     clock_cycles = 0
@@ -37,7 +39,7 @@ class PlanetSaver:
         pygame.display.flip()
 
     def play_game(self):
-        self.__calculate_new_random_blister_position()
+        self.__calculate_new_random_blister_positions()
 
         self.running = True
         while self.running:
@@ -46,12 +48,20 @@ class PlanetSaver:
                 continue
             self.__update_orbital_position()
             self.__update_laser_beam()
-            if self.__laser_beam_hits_blister():
-                self.__calculate_new_random_blister_position()
-                self.score = self.score + 1
+            for i, pos in enumerate(self.blister_positions):
+                if self.__laser_beam_hits_blister(pos):
+                    random_angle = randint(1, 360)
+                    self.blister_positions[i] = self.calculate_position_on_circle(random_angle, self.PLANET_RADIUS + 1,
+                                                                                   self.CANVAS_CENTER)
+                    self.score = self.score + 1
             self.__draw()
             self.clock_cycles += 1
             sleep(self.CYCLE_PAUSE)
+            if self.score == self.WINNING_SCORE:
+                self.paused = True
+                you_win_image = pygame.image.load('you_win.jpg').convert()
+                self.screen.blit(you_win_image, (40, 220))
+                pygame.display.flip()
 
     def __handle_keyboard_inputs(self):
         events = pygame.event.get()
@@ -81,10 +91,13 @@ class PlanetSaver:
         self.orbital_position = self.calculate_position_on_circle(self.orbital_angle, self.ORBIT_RADIUS,
                                                                   self.CANVAS_CENTER)
 
-    def __calculate_new_random_blister_position(self):
-        random_angle = randint(1, 360)
-        self.blister_position = self.calculate_position_on_circle(random_angle, self.PLANET_RADIUS + 1,
-                                                                  self.CANVAS_CENTER)
+    def __calculate_new_random_blister_positions(self):
+        new_blister_positions = []
+        for i in range(self.NR_OF_BLISTERS):
+            random_angle = randint(1, 360)
+            new_blister_positions.append(self.calculate_position_on_circle(random_angle, self.PLANET_RADIUS + 1,
+                                                                       self.CANVAS_CENTER))
+        self.blister_positions = new_blister_positions
 
     def __update_laser_beam(self):
         if self.clock_cycles > self.LASER_BEAM_ACTIVATION_CYCLE:
@@ -99,12 +112,12 @@ class PlanetSaver:
             self.laser_beam_active = False
             self.clock_cycles = 0
 
-    def __laser_beam_hits_blister(self):
+    def __laser_beam_hits_blister(self, pos):
         laser_beam_planet_impact = self.laser_beam[0]
-        return ((self.blister_position[0] >= laser_beam_planet_impact[0] - 20) and
-                (self.blister_position[0] <= laser_beam_planet_impact[0] + 20) and
-                (self.blister_position[1] >= laser_beam_planet_impact[1] - 20) and
-                (self.blister_position[1] <= laser_beam_planet_impact[1] + 20))
+        return ((pos[0] >= laser_beam_planet_impact[0] - 20) and
+                (pos[0] <= laser_beam_planet_impact[0] + 20) and
+                (pos[1] >= laser_beam_planet_impact[1] - 20) and
+                (pos[1] <= laser_beam_planet_impact[1] + 20))
 
     def __draw(self):
         self.screen.fill(self.BACKGROUND_COLOR)
@@ -112,7 +125,8 @@ class PlanetSaver:
         text_rectangle = score_text.get_rect()
         text_rectangle.center = (self.CANVAS_WIDTH / 2, 100)
         self.screen.blit(score_text, text_rectangle)
-        pygame.draw.circle(self.screen, (0, 0, 255), self.blister_position, 10)
+        for pos in self.blister_positions:
+            pygame.draw.circle(self.screen, (0, 0, 255), pos, 10)
         if self.laser_beam_active:
             pygame.draw.line(self.screen, (0, 255, 0), self.laser_beam[0], self.laser_beam[1])
         pygame.draw.circle(self.screen, (255, 0, 0), self.CANVAS_CENTER, self.PLANET_RADIUS)
