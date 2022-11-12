@@ -2,6 +2,11 @@
 import pygame
 from paddle import Paddle
 from ball import Ball
+import random
+
+
+def generate_random_color():
+    return random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)
 
 
 def main():
@@ -78,11 +83,21 @@ def main():
             pygame.mixer.Sound.play(score_sound)
             pygame.mixer.music.stop()
             scoreA += 1
+
+            paddleA.update_color(generate_random_color())
+            paddleB.update_color(generate_random_color())
+            ball.update_color(generate_random_color())
+
             ball.velocity[0] = -ball.velocity[0]
         if ball.rect.x <= 0:
             pygame.mixer.Sound.play(score_sound)
             pygame.mixer.music.stop()
             scoreB += 1
+
+            paddleA.update_color(generate_random_color())
+            paddleB.update_color(generate_random_color())
+            ball.update_color(generate_random_color())
+
             ball.velocity[0] = -ball.velocity[0]
         if ball.rect.y > 490:
             ball.velocity[1] = -ball.velocity[1]

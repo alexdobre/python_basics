@@ -25,6 +25,9 @@ class Ball(pygame.sprite.Sprite):
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
 
+    def update_color(self, color):
+        self.image.fill(color)
+
     def update(self):
         self.rect.x += self.velocity[0]
         self.rect.y += self.velocity[1]

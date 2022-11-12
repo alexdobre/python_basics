@@ -9,7 +9,6 @@ class Paddle(pygame.sprite.Sprite):
     def __init__(self, color, width, height):
         # Call the parent class (Sprite) constructor
         super().__init__()
-
         # Pass in the color of the Paddle, its width and height.
         # Set the background color and set it to be transparent
         self.image = pygame.Surface([width, height])
@@ -21,6 +20,9 @@ class Paddle(pygame.sprite.Sprite):
 
         # Fetch the rectangle object that has the dimensions of the image.
         self.rect = self.image.get_rect()
+
+    def update_color(self, color):
+        self.image.fill(color)
 
     def moveUp(self, pixels):
         self.rect.y -= pixels
