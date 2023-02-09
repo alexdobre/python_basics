@@ -40,7 +40,7 @@ class OregonTrail:
     def make_decision(self):
         decision = input("What would you like to do? (travel, rest, hunt, trade, eat, drink water) ")
         if decision == "travel":
-            self.player_distance_traveled += 100
+            self.player_distance_traveled += 6000
             self.player_hunger += 5
             self.player_thirst += 5
             self.player_fatigue += 5
